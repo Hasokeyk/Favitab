@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="tr-TR">
+<head>
+	<meta charset="UTF-8">
+
+	<!--SEO-->
+	<title>Hi! This Browser Title</title>
+	<meta name="description"  content="" />
+	<link rel="icon" href="https://www.hayatikodla.net/wp-content/uploads/2016/02/cropped-cropped-logo1-32x32.png" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+	
+	
+	<!--CSS-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css" />
+	
+	<!--JS-->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/javascript.min.js"></script>
+	<script type="text/javascript" src="favitab.min.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+	
+		$(window).favitab({
+			out : {
+				title : 'Hey!! Where Are you?'
+			}
+		});
+
+		$('pre code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+		
+	});
+	</script>
+	
+	
+
+</head>
+<body>
+	
+	<header>
+		
+		<div class="ortala">
+			<h1>FAVITAB</h1>
+			<p>
+				Web sitenize gelmiş olan kullanıcı başka bir sekmeye geçiş yaptığında sizin web sitenize ait olan sekmenin değişmesini sağlar
+			</p>
+			<p>
+				Kullanıcı sekme değiştirince Başlık ve Favicon değiştirebilir hatta müzik çaldırabilirsiniz.
+			</p>
+		</div>
+		
+	</header>
+	
+	<section>
+		<div class="ortala">
+			
+			<h2>DEMO</h2>
+			<p>
+				Demoyu görmek için bu sekmeden başka bir sekmeye çıkıp tekrar bu sekmeyi seçin
+			</p>
+		</div>
+	</section>
+	
+	
+	<section>
+		<div class="ortala">
+			
+			<h2>NASIL KULLANIRIM?</h2>
+			<p>
+				Aşağıdaki parametreleri kullanarak eklentiyi yönetebilirsiniz.
+			</p>
+			<pre><code class="hljs js">
+&lt;script type="text/javascript"&gt;
+jQuery(function($){
+
+$(window).favitab({
+	out  : { //Sekmeden çıkınca yapılacak işlemler
+		title : 'Nereye Gittin', //(string) Başlıkta yazacak yazı
+		time  : null, //(null | int ) kaç sn sonra işlem yapılacak
+		favicon : "//app.hayatikodla.net/favitab/uzgun.png", //(string) favicon tam yolu
+		sound : "//app.hayatikodla.net/favitab/dontgo.mp3", //(string) mp3 tam yolu
+	},
+	back : { //Sekmeye geri gelince yapılacak işlemler
+		title : null, //(string) Başlıkta yazacak yazı
+		time  : null, //(null | int ) kaç sn sonra işlem yapılacak
+		favicon : null, //(string) favicon tam yolu
+		sound : "//app.hayatikodla.net/favitab/welcome.mp3", //(string) mp3 tam yolu
+	}
+});
+
+});
+&lt;/script&gt;
+			</code></pre>
+		</div>
+	</section>
+</body>
+</html>
