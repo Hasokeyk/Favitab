@@ -1,33 +1,28 @@
-# Favitab Nedir?
+# What is Favitab?
 
-#### APP : Favitab
-#### Versiyon : V1.0.0
+## APP NAME : Favitab
+#### Versiyon : V2.0.0
 
 
-* Favitab web sitesine gelen kullanıcı sayfanızdan çıkınca veya sekme değiştirince işlem yapmanıza olanak sağlar.
- * Kullanıcı ayrılınca
- 	* Müzik çalabilir
- 	* Favicon değiştirebilirsiniz
- 	* Title değiştirebilirsiniz
-* Kullanıcı sekmeye geri gelince
-	* Müzik Çalabilir
-	* Favicon eski haline gelir veya yeni bir favicon tanımlayabilirsiniz.
-	* Title değişebilir veya istediğiniz title belirlersiniz ve 1sn sonra orjinal title geri aktif olur
+* You can customize your Tab when the user who visits your website changes the Browser tab.
+ 	* Play Music
+ 	* Change Favicon
+ 	* Change Title
 
 ```javascript
 jQuery(function($){
     $(window).favitab({
-        out  : { //Sekmeden çıkınca yapılacak işlemler
-            title : 'Nereye Gittin', //(string) Başlıkta yazacak yazı
-            time  : null, //(null | int ) kaç sn sonra işlem yapılacak
-            favicon : "//app.hayatikodla.net/favitab/uzgun.png", //(string) favicon tam yolu
-            sound : "//app.hayatikodla.net/favitab/dontgo.mp3", //(string) mp3 tam yolu
+        out  : {  //Transactions to be done when you exit the tab
+            title : 'Where are you go?', // (string) Out title text
+            time  : null, // (null | int ) Let the process begin after a few seconds.
+            favicon : "assets/img/sad.png", // (string) Out favicon path
+            sound : "assets/sound/dontgo.mp3", // (string) Out mp3 path
         },
         back : { //Sekmeye geri gelince yapılacak işlemler
-            title : null, //(string) Başlıkta yazacak yazı
-            time  : null, //(null | int ) kaç sn sonra işlem yapılacak
-            favicon : null, //(string) favicon tam yolu
-            sound : "//app.hayatikodla.net/favitab/welcome.mp3", //(string) mp3 tam yolu
+            title : null, // (string) Back title text
+            time  : null, // (null | int ) Let the process begin after a few seconds.
+            favicon : null, // (string) Back favicon path
+            sound : "asstes/sound/welcome.mp3", //(string) mp3 tam yolu
         }
     });
 });
