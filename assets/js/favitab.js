@@ -9,55 +9,55 @@
  
     $.fn.favitab = function( options ) {
 		
-		var outSoundPath 	= "assets/sound/dontgo.mp3"
-		var InSoundPath 	= "assets/sound/welcome.mp3"
-
 		var defaults  = {
 			out  : {
-				title : 'Nereye Gittin',
-				time  : null,
-				favicon : "assets/img/uzgun.png",
-				sound : outSoundPath,
+				title 		: null,
+				time  		: 0,
+				favicon 	: null,
+				sound 		: null,
+				callback	: null
 			},
-			back : {
-				title : null,
-				time  : null,
-				favicon : null,
-				sound : InSoundPath,
+			back : {	
+				title 		: null,
+				time  		: 0,
+				favicon 	: null,
+				sound 		: null,
+				callback	: null
 			}
         };
 		
-        var settings = $.extend({
-			
-			out  : {
-				title : 'Nereye Gittin',
-				time  : null,
-				favicon : "assets/img/uzgun.png",
-				sound : outSoundPath,
-			},
-			back : {
-				title : null,
-				time  : null,
-				favicon : null,
-				sound : InSoundPath,
-			}
-			
-		}, defaults , options );
+		var settings 	= $.extend(true,defaults , options);
 		
-		var outTitle = settings.out.title;
 		var originalTitle,originalfav;
-		
-		var backTime = settings.back.time==undefined?0:settings.back.time;
-		var outTime =  settings.out.time==undefined?0:settings.out.time;
 
-		var backSound = settings.back.sound==undefined?defaults.back.sound:settings.back.sound;
-		var outSound  = settings.out.sound==undefined?defaults.out.sound:settings.out.sound;
-		
-		var backFavicon = settings.back.favicon==undefined?defaults.back.favicon:settings.back.favicon;
-		var outFavicon  = settings.out.favicon==undefined?defaults.out.favicon:settings.out.favicon;
-		
-		var backSoundPlay = new Audio(backSound);
-		var outSoundPlay = new Audio(outSound);
+		var outTime 	= settings.out.time;
+		var backTime 	= settings.back.time;
+
+		var outTitle	= settings.out.title;
+		var backTitle	= settings.back.title;
+
+		var outFavicon	= settings.out.favicon;
+		var backFavicon	= settings.back.favicon;
+
+		//SES ÇALMASI İSTENİRSE SESLER ÖNCEDEN YÜKLENSİN
+		if(settings.back.sound != null){
+			try {
+				var backSoundPlay = new Audio(settings.back.sound);
+				backSoundPlay.load();
+			} catch (error) {
+				var backSoundPlay = null;
+			} 
+		}
+
+		if(settings.out.sound != null){
+			try {
+				var outSoundPlay = new Audio(settings.out.sound);
+				outSoundPlay.load();
+			} catch (error) {
+				var outSoundPlay = null;
+			}
+		}
+		//SES ÇALMASI İSTENİRSE SESLER ÖNCEDEN YÜKLENSİN
 
 		$(window).focus(function(){
 			
@@ -65,16 +65,19 @@
 			if(originalTitle){
 				setTimeout(function(){
 					
-					if(settings.back.title == undefined){
+					//TİTLE
+					if(backTitle == null){
 						document.title = originalTitle;
 					}else{
-						document.title = settings.back.title;
+						document.title = backTitle;
 						setTimeout(function(){
 							document.title = originalTitle;
 						},1000);
 					}
+					//TİTLE
 					
-					if(settings.back.title==undefined){
+					//FAVİCON
+					if(backFavicon == null){
 						$('link[rel="icon"]').attr('href',originalfav);
 					}else{
 						$('link[rel="icon"]').attr('href',backFavicon);
@@ -82,27 +85,50 @@
 							$('link[rel="icon"]').attr('href',originalfav);
 						},1000);
 					}
+					//FAVİCON
+
+					//SES
+					if(backSoundPlay != null){
+						
+						var backSoundPly = backSoundPlay.play();
+						if (backSoundPly !== undefined) {
+							backSoundPly.then(_ => {
+
+							})
+							.catch(error => {
+								console.error('Back Sound not load',error)
+							});
+						}
+
+					}
+						
+					if(outSoundPlay != null){
+						outSoundPlay.pause();
+						outSoundPlay.currentTime = 0;
+					}
+					//SES
+
+					//FONKSİYON
+					if(typeof settings.back.callback == 'function'){
+						settings.back.callback();
+					}
+					//FONKSİYON
 					
-				},backTime*1000);
+				},backTime);
 				
 			}
 			//SEKMEYE GERİ GELDİ
 			
-			if(backSound != null || backSound != false){
-				outSoundPlay.pause();
-				outSoundPlay.currentTime = 0;
-				
-				backSoundPlay.play();
-			}
 			
 		}).blur(function(){
 			
 			//SEKMEDEN ÇIKINCA
 			setTimeout(function(){
 				
+				//TİTLE VE FAVİCON
 				var title = $('title').text();
 				if(title != outTitle){
-					originalTitle = title;	
+					originalTitle = title;
 					originalfav = $('link[rel="icon"]').attr('href');				
 				}
 				document.title = outTitle;
@@ -112,15 +138,38 @@
 				}else{
 					$('head').append('<link rel="icon" href="'+outFavicon+'" />');
 				}
+				//TİTLE VE FAVİCON
+
+				//SES
+				if(outSoundPlay != null){
+					
+					var outSoundPly = outSoundPlay.play();
+					if (outSoundPly !== undefined) {
+						outSoundPly.then(_ => {
+							
+						})
+						.catch(error => {
+							console.error('Out Sound not load',error)
+						});
+					}
+
+				}
+
 				
-				if(outSound != null || outSound != false){
+				if(backSoundPlay != null){
 					backSoundPlay.pause();
 					backSoundPlay.currentTime = 0;
-
-					outSoundPlay.play();
 				}
+				//SES
+
+				//FONKSİYON
+				if(typeof settings.out.callback == 'function'){
+					settings.out.callback();
+				}
+				//FONKSİYON
 				
-			},outTime*1000);
+				
+			},outTime);
 			//SEKMEDEN ÇIKINCA
 			
 		});

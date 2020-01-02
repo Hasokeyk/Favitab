@@ -11,7 +11,8 @@
 	<!--CSS-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="assets/css/style.css" />
-	
+	<link rel="icon" href="assets/img/normal.png"/>
+
 	<!--JS-->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
@@ -19,10 +20,24 @@
 	<script type="text/javascript" src="assets/js/favitab.js"></script>
 	<script type="text/javascript">
 	jQuery(function($){
-	
+		
 		$(window).favitab({
 			out : {
-				title : 'Hey!! Where Are you?'
+				title 		: 'Hey!! Where Are you?',
+				sound 		: 'assets/sound/dontgo.mp3',
+				favicon 	: 'assets/img/sad.png',
+				time 		: 1000,
+				callback 	: function(e){
+					console.log('Çıktı');
+				}
+			},
+			back : {
+				sound 		: 'assets/sound/welcome.mp3',
+				favicon 	: 'assets/img/happy.png',
+				time 		: 1000,
+				callback 	: function(e){
+					console.log('Geldi');
+				} 
 			}
 		});
 
@@ -32,7 +47,6 @@
 		
 	});
 	</script>
-	
 	
 
 </head>
@@ -80,12 +94,14 @@ $(window).favitab({
 		time  : null, //(null | int ) kaç sn sonra işlem yapılacak
 		favicon : "//app.hayatikodla.net/favitab/uzgun.png", //(string) favicon tam yolu
 		sound : "//app.hayatikodla.net/favitab/dontgo.mp3", //(string) mp3 tam yolu
+		callback : function(){} // işlem bitince fonksiyon tetiklemek için
 	},
 	back : { //Sekmeye geri gelince yapılacak işlemler
 		title : null, //(string) Başlıkta yazacak yazı
 		time  : null, //(null | int ) kaç sn sonra işlem yapılacak
 		favicon : null, //(string) favicon tam yolu
 		sound : "//app.hayatikodla.net/favitab/welcome.mp3", //(string) mp3 tam yolu
+		callback : function(){} // işlem bitince fonksiyon tetiklemek için
 	}
 });
 
