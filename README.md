@@ -34,4 +34,4 @@ jQuery(function($){
 ```
 
 ## Favitab Demo
-https://app.hayatikodla.net/favitab/
+https://hasokeyk.github.io/Favitab/
