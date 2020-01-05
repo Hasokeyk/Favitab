@@ -4,7 +4,7 @@
 		Hasan Yüksektepe
 		www.hayatikodla.net
 		02.01.2020
-		V1.1.0
+		V2.0.5
 	*/
  
     $.fn.favitab = function( options ) {
@@ -62,61 +62,58 @@
 		$(window).focus(function(){
 			
 			//SEKMEYE GERİ GELDİ
-			if(originalTitle){
-				setTimeout(function(){
-					
-					//TİTLE
-					if(backTitle == null){
-						document.title = originalTitle;
-					}else{
-						document.title = backTitle;
-						setTimeout(function(){
-							document.title = originalTitle;
-						},1000);
-					}
-					//TİTLE
-					
-					//FAVİCON
-					if(backFavicon == null){
-						$('link[rel="icon"]').attr('href',originalfav);
-					}else{
-						$('link[rel="icon"]').attr('href',backFavicon);
-						setTimeout(function(){
-							$('link[rel="icon"]').attr('href',originalfav);
-						},1000);
-					}
-					//FAVİCON
-
-					//SES
-					if(backSoundPlay != null){
-						
-						var backSoundPly = backSoundPlay.play();
-						if (backSoundPly !== undefined) {
-							backSoundPly.then(_ => {
-
-							})
-							.catch(error => {
-								console.error('Back Sound not load',error)
-							});
-						}
-
-					}
-						
-					if(outSoundPlay != null){
-						outSoundPlay.pause();
-						outSoundPlay.currentTime = 0;
-					}
-					//SES
-
-					//FONKSİYON
-					if(typeof settings.back.callback == 'function'){
-						settings.back.callback();
-					}
-					//FONKSİYON
-					
-				},backTime);
+			setTimeout(function(){
 				
-			}
+				//TİTLE
+				if(backTitle == null){
+					document.title = originalTitle;
+				}else{
+					document.title = backTitle;
+					setTimeout(function(){
+						document.title = originalTitle;
+					},1000);
+				}
+				//TİTLE
+				
+				//FAVİCON
+				if(backFavicon == null){
+					$('link[rel="icon"]').attr('href',originalfav);
+				}else{
+					$('link[rel="icon"]').attr('href',backFavicon);
+					setTimeout(function(){
+						$('link[rel="icon"]').attr('href',originalfav);
+					},1000);
+				}
+				//FAVİCON
+
+				//SES
+				if(backSoundPlay != null){
+					
+					var backSoundPly = backSoundPlay.play();
+					if (backSoundPly !== undefined) {
+						backSoundPly.then(_ => {
+
+						})
+						.catch(error => {
+							console.error('Back Sound not load',error)
+						});
+					}
+
+				}
+					
+				if(outSoundPlay != null){
+					outSoundPlay.pause();
+					outSoundPlay.currentTime = 0;
+				}
+				//SES
+
+				//FONKSİYON
+				if(typeof settings.back.callback == 'function'){
+					settings.back.callback();
+				}
+				//FONKSİYON
+				
+			},backTime);
 			//SEKMEYE GERİ GELDİ
 			
 			
